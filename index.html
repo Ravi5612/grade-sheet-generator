@@ -135,6 +135,16 @@
     </table>
     </div>
     <button type="button" class="add-row-btn" onclick="addRow()">+ Add Subject</button>
+    &nbsp;
+    <button type="button" class="add-row-btn" style="background:#27ae60;" onclick="toggleBulk()">📋 Bulk Paste</button>
+
+    <div id="bulkArea" style="display:none; margin-top:12px; background:#f0fff4; border:1px solid #27ae60; border-radius:6px; padding:12px;">
+      <p style="margin:0 0 6px 0; font-size:13px; font-weight:bold; color:#27ae60;">📌 Ek line = ek subject — Format: <code>Code, Name, Type, Credits, Grade</code></p>
+      <p style="margin:0 0 8px 0; font-size:12px; color:#555;">Example:<br>BTAS101-18, Mathematics-I, Theory, 4, A<br>BTPH102-18, Engineering Physics, Theory, 3, B+</p>
+      <textarea id="bulkText" rows="8" style="width:100%; box-sizing:border-box; font-family:monospace; font-size:13px; padding:8px; border:1px solid #ccc; border-radius:4px;" placeholder="BTAS101-18, Mathematics-I, Theory, 4, A&#10;BTPH102-18, Engineering Physics, Theory, 3, B+&#10;..."></textarea>
+      <button type="button" onclick="parseBulk()" style="margin-top:8px; background:#27ae60; color:white; border:none; padding:8px 20px; border-radius:4px; font-size:14px; cursor:pointer; font-weight:bold;">✅ Add All Subjects</button>
+      <button type="button" onclick="toggleBulk()" style="margin-top:8px; margin-left:8px; background:#ccc; color:#333; border:none; padding:8px 16px; border-radius:4px; font-size:14px; cursor:pointer;">Cancel</button>
+    </div>
 
     <button type="submit" class="btn">Generate Grade Sheet</button>
   </form>
@@ -152,6 +162,41 @@
       <td><button type="button" onclick="this.parentElement.parentElement.remove()">X</button></td>
     `;
     document.getElementById('subjectsBody').appendChild(tr);
+  }
+
+  function toggleBulk() {
+    const area = document.getElementById('bulkArea');
+    area.style.display = area.style.display === 'none' ? 'block' : 'none';
+  }
+
+  function parseBulk() {
+    const text = document.getElementById('bulkText').value.trim();
+    if (!text) { alert('Kuch toh paste karo!'); return; }
+    
+    const lines = text.split('\n');
+    let added = 0;
+    lines.forEach(line => {
+      line = line.trim();
+      if (!line) return;
+      const parts = line.split(',').map(p => p.trim());
+      if (parts.length < 5) return;
+      
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><input type="text" class="cell-input code" value="${parts[0]}"></td>
+        <td><input type="text" class="cell-input name" style="text-align:left;" value="${parts[1]}"></td>
+        <td><input type="text" class="cell-input type" value="${parts[2]}"></td>
+        <td><input type="text" class="cell-input cred" value="${parts[3]}"></td>
+        <td><input type="text" class="cell-input grade" value="${parts[4]}"></td>
+        <td><button type="button" onclick="this.parentElement.parentElement.remove()">X</button></td>
+      `;
+      document.getElementById('subjectsBody').appendChild(tr);
+      added++;
+    });
+    
+    document.getElementById('bulkText').value = '';
+    document.getElementById('bulkArea').style.display = 'none';
+    alert(added + ' subjects add ho gaye! ✅');
   }
 
   document.getElementById('marksheetForm').addEventListener('submit', function(e) {
