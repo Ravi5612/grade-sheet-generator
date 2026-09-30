@@ -74,9 +74,16 @@
     
     <div class="row">
       <div class="form-group">
-        <label>Branch & Course</label>
-        <input type="text" id="branch" required value="Bachelor of Technology (Computer Science & Engineering)">
+        <label>Course (e.g. Bachelor of Technology)</label>
+        <input type="text" id="course" required value="Bachelor of Technology">
       </div>
+      <div class="form-group">
+        <label>Branch (e.g. Computer Science & Engineering)</label>
+        <input type="text" id="branch" required value="Computer Science & Engineering">
+      </div>
+    </div>
+    
+    <div class="row">
       <div class="form-group">
         <label>Semester (e.g. 5th)</label>
         <input type="text" id="sem" required value="FOURTH">
@@ -159,7 +166,7 @@
       document.getElementById('mname').value,
       document.getElementById('edp').value,
       document.getElementById('college').value,
-      document.getElementById('branch').value,
+      document.getElementById('course').value + ' (' + document.getElementById('branch').value + ')',
       document.getElementById('sem').value,
       document.getElementById('session').value,
       document.getElementById('result_date').value,
