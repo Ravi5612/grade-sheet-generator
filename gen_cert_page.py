@@ -169,44 +169,45 @@ html = f"""<!DOCTYPE html>
     const dataStr = urlParams.get('data');
     if(dataStr) {{
       try {{
+        // Decode compact array
         const data = JSON.parse(atob(dataStr));
         
-        // Change Document Title for PDF Name (e.g. 5th_sem_ptu)
-        const semClean = data.sem.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const semClean = data[7].toLowerCase().replace(/[^a-z0-9]/g, '');
         document.title = semClean + '_sem_ptu';
         
-        // Populate fields
-        document.getElementById('o-name').innerText = data.name;
-        document.getElementById('o-roll').innerText = data.roll;
-        document.getElementById('o-fname').innerText = data.fname;
-        document.getElementById('o-mname').innerText = data.mname;
-        document.getElementById('o-edp').innerText = data.edp;
+        document.getElementById('o-name').innerText = data[0];
+        document.getElementById('o-roll').innerText = data[1];
+        document.getElementById('o-fname').innerText = data[2];
+        document.getElementById('o-mname').innerText = data[3];
+        document.getElementById('o-edp').innerText = data[4];
         
-        // Format college with a break if long
-        let col = data.college;
+        let col = data[5];
         if(col.includes(', ')) col = col.replace(', ', ',<br>');
         document.getElementById('o-college').innerHTML = col;
         
-        document.getElementById('o-subtitle').innerText = data.branch + ',' + data.sem + ' Semester,' + data.session;
-        document.getElementById('o-credits').innerText = data.credits;
-        document.getElementById('o-sgpa').innerText = data.sgpa;
-        document.getElementById('o-rdate').innerText = data.result_date;
-        document.getElementById('o-idate').innerText = data.result_date;
+        document.getElementById('o-subtitle').innerText = data[6] + ',' + data[7] + ' Semester,' + data[8];
+        document.getElementById('o-credits').innerText = data[11];
+        document.getElementById('o-sgpa').innerText = data[10];
+        document.getElementById('o-rdate').innerText = data[9];
+        document.getElementById('o-idate').innerText = data[9];
         
-        // Populate table
         const tbody = document.getElementById('o-subjects');
         tbody.innerHTML = '';
-        data.subjects.forEach(sub => {{
+        data[12].forEach(sub => {{
             const tr = document.createElement('tr');
-            tr.innerHTML = `<td>${{sub.c}}</td><td>${{sub.n}}</td><td>${{sub.t}}</td><td>${{sub.cr}}</td><td>${{sub.g}}</td>`;
+            tr.innerHTML = `<td>${{sub[0]}}</td><td style="text-align:left;">${{sub[1]}}</td><td>${{sub[2]}}</td><td>${{sub[3]}}</td><td>${{sub[4]}}</td>`;
             tbody.appendChild(tr);
         }});
         
-        // Generate QR pointing to this exact URL
+        // High Quality QR Generation (Draw large, display small)
+        document.getElementById("qrcode").innerHTML = '';
         new QRCode(document.getElementById("qrcode"), {{
             text: window.location.href,
-            width: 100,
-            height: 100
+            width: 300,
+            height: 300,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.L
         }});
         
       }} catch(e) {{

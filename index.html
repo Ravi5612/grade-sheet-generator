@@ -140,31 +140,32 @@
     e.preventDefault();
     
     // Collect data
-    const data = {
-      name: document.getElementById('name').value,
-      roll: document.getElementById('roll').value,
-      fname: document.getElementById('fname').value,
-      mname: document.getElementById('mname').value,
-      edp: document.getElementById('edp').value,
-      college: document.getElementById('college').value,
-      branch: document.getElementById('branch').value,
-      sem: document.getElementById('sem').value,
-      session: document.getElementById('session').value,
-      result_date: document.getElementById('result_date').value,
-      sgpa: document.getElementById('sgpa').value,
-      credits: document.getElementById('credits').value,
-      subjects: []
-    };
+    // Compact Array to save URL length
+    const data = [
+      document.getElementById('name').value,
+      document.getElementById('roll').value,
+      document.getElementById('fname').value,
+      document.getElementById('mname').value,
+      document.getElementById('edp').value,
+      document.getElementById('college').value,
+      document.getElementById('branch').value,
+      document.getElementById('sem').value,
+      document.getElementById('session').value,
+      document.getElementById('result_date').value,
+      document.getElementById('sgpa').value,
+      document.getElementById('credits').value,
+      []
+    ];
 
     const rows = document.querySelectorAll('#subjectsBody tr');
     rows.forEach(row => {
-      data.subjects.push({
-        c: row.querySelector('.code').value,
-        n: row.querySelector('.name').value,
-        t: row.querySelector('.type').value,
-        cr: row.querySelector('.cred').value,
-        g: row.querySelector('.grade').value
-      });
+      data[12].push([
+        row.querySelector('.code').value,
+        row.querySelector('.name').value,
+        row.querySelector('.type').value,
+        row.querySelector('.cred').value,
+        row.querySelector('.grade').value
+      ]);
     });
 
     // Encode to base64 to pass via URL safely
