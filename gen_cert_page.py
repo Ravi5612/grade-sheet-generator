@@ -45,7 +45,7 @@ html = f"""<!DOCTYPE html>
   .logo-container img {{ width: 95px; height: 95px; object-fit: contain; }}
   .qr-container {{ position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 100px; height: 100px; }}
   
-  #qrcode img { width: 100%; height: 100%; image-rendering: pixelated; display: block; margin: auto; }
+  #qrcode img {{ width: 100%; height: 100%; image-rendering: pixelated; display: block; margin: auto; }}
   /* GRADE SHEET TITLE */
   .sheet-title {{ text-align: center; margin-bottom: 10px; }}
   .sheet-title h2 {{ font-family: "Brush Script MT", cursive; font-size: 32px; font-weight: normal; font-style: italic; color: #1e293b; margin-bottom: 5px; }}
