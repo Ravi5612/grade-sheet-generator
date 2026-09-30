@@ -84,6 +84,52 @@ html = f"""<!DOCTYPE html>
   .print-btn {{ display: block; margin: 20px auto 0 auto; padding: 10px 30px; background: #8B0000; color: white; border: none; font-size: 14px; cursor: pointer; border-radius: 4px; font-weight: bold; text-align:center; text-decoration:none; width: 200px; }}
   .print-btn:hover {{ background: #a00000; }}
   @media print {{ .print-btn {{ display: none !important; }} .container {{ margin: 0; box-shadow: none; padding: 0; }} }}
+
+  /* ---- MOBILE RESPONSIVE ---- */
+  @media (max-width: 640px) {{
+    .container {{ padding: 15px 12px; margin: 10px auto; }}
+
+    /* Header */
+    .punjabi-text {{ font-size: 16px; padding-right: 60px; }}
+    .university-name {{ font-size: 19px; }}
+    .old-university-name {{ font-size: 15px; }}
+    .edp-no {{ font-size: 10px; }}
+
+    /* Top info - switch from absolute to flex layout on mobile */
+    .top-info {{ position: static; height: auto; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; margin: 10px 0; }}
+    .student-details-left {{ position: static; transform: none; font-size: 12px; line-height: 1.6; }}
+    .logo-container {{ position: static; transform: none; display: none; }}
+    .qr-container {{ position: static; transform: none; width: 80px; height: 80px; align-self: flex-end; margin-top: -60px; }}
+    .qr-container img {{ width: 80px; height: 80px; }}
+
+    /* Title */
+    .sheet-title h2 {{ font-size: 24px; }}
+    .sheet-subtitle {{ font-size: 11px; }}
+
+    /* Personal info */
+    .personal-info table td {{ font-size: 11px; }}
+    .personal-info table td:first-child {{ width: 85px; }}
+
+    /* Grades table */
+    .grades-table {{ font-size: 10px; }}
+    .grades-table th, .grades-table td {{ padding: 3px 3px; }}
+    .grades-table th:nth-child(1), .grades-table td:nth-child(1) {{ width: 55px; }}
+    .grades-table th:nth-child(3), .grades-table td:nth-child(3) {{ width: 55px; }}
+    .grades-table th:nth-child(4), .grades-table td:nth-child(4) {{ width: 45px; }}
+    .grades-table th:nth-child(5), .grades-table td:nth-child(5) {{ width: 38px; }}
+
+    /* Summary */
+    .summary-info {{ flex-direction: column; font-size: 11px; gap: 4px; }}
+
+    /* Bottom */
+    .bottom-left {{ font-size: 11px; }}
+    .bottom-left span {{ width: 140px; }}
+
+    /* Signatures */
+    .signatures {{ font-size: 9.5px; }}
+    .sig-img {{ height: 32px; }}
+    .signature-box {{ width: 24%; }}
+  }}
 </style>
 </head>
 <body>
