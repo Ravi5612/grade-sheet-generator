@@ -37,6 +37,33 @@
 
 <div class="container">
   <h1>PTU Grade Sheet Generator</h1>
+
+  <!-- QUICK FILL BUTTON -->
+  <div style="text-align:center; margin-bottom:16px;">
+    <button type="button" onclick="toggleQuickFill()" style="background:#8B0000; color:white; border:none; padding:10px 24px; border-radius:4px; font-size:14px; cursor:pointer; font-weight:bold;">⚡ Quick Fill All</button>
+  </div>
+
+  <!-- QUICK FILL AREA -->
+  <div id="quickFillArea" style="display:none; background:#fff8f0; border:2px solid #8B0000; border-radius:8px; padding:16px; margin-bottom:20px;">
+    <p style="margin:0 0 6px 0; font-size:13px; font-weight:bold; color:#8B0000;">📋 Neeche format mein paste karo (ek line = ek field):</p>
+    <pre style="background:#f5f5f5; padding:10px; border-radius:4px; font-size:11px; margin:0 0 10px 0; overflow-x:auto;">Naam (Student Name)
+Roll Number
+Father's Name
+Mother's Name
+EDP Number
+College Name
+Course
+Branch
+Semester (e.g. FOURTH)
+Session (e.g. April-2025)
+Result Date (e.g. 01.08.2025)
+SGPA
+Total Credits</pre>
+    <textarea id="quickFillText" rows="13" style="width:100%; box-sizing:border-box; font-family:monospace; font-size:13px; padding:8px; border:1px solid #ccc; border-radius:4px;" placeholder="RAVI RAI&#10;2130733&#10;UMESH RAI&#10;ANJU DEVI&#10;1002785552&#10;Gulzar Group of Institutes, Khanna, Ludhiana&#10;Bachelor of Technology&#10;Computer Science &amp; Engineering&#10;FOURTH&#10;April-2025&#10;01.08.2025&#10;6.29&#10;21"></textarea>
+    <button type="button" onclick="parseQuickFill()" style="margin-top:8px; background:#8B0000; color:white; border:none; padding:8px 20px; border-radius:4px; font-size:14px; cursor:pointer; font-weight:bold;">✅ Fill Form</button>
+    <button type="button" onclick="toggleQuickFill()" style="margin-top:8px; margin-left:8px; background:#ccc; color:#333; border:none; padding:8px 16px; border-radius:4px; font-size:14px; cursor:pointer;">Cancel</button>
+  </div>
+
   <form id="marksheetForm">
     
     <div class="row">
@@ -162,6 +189,34 @@
       <td><button type="button" onclick="this.parentElement.parentElement.remove()">X</button></td>
     `;
     document.getElementById('subjectsBody').appendChild(tr);
+  }
+
+  function toggleQuickFill() {
+    const area = document.getElementById('quickFillArea');
+    area.style.display = area.style.display === 'none' ? 'block' : 'none';
+  }
+
+  function parseQuickFill() {
+    const text = document.getElementById('quickFillText').value.trim();
+    if (!text) { alert('Kuch paste karo pehle!'); return; }
+    const lines = text.split('\n').map(l => l.trim());
+    
+    if (lines[0]) document.getElementById('name').value = lines[0];
+    if (lines[1]) document.getElementById('roll').value = lines[1];
+    if (lines[2]) document.getElementById('fname').value = lines[2];
+    if (lines[3]) document.getElementById('mname').value = lines[3];
+    if (lines[4]) document.getElementById('edp').value = lines[4];
+    if (lines[5]) document.getElementById('college').value = lines[5];
+    if (lines[6]) document.getElementById('course').value = lines[6];
+    if (lines[7]) document.getElementById('branch').value = lines[7];
+    if (lines[8]) document.getElementById('sem').value = lines[8];
+    if (lines[9]) document.getElementById('session').value = lines[9];
+    if (lines[10]) document.getElementById('result_date').value = lines[10];
+    if (lines[11]) document.getElementById('sgpa').value = lines[11];
+    if (lines[12]) document.getElementById('credits').value = lines[12];
+    
+    document.getElementById('quickFillArea').style.display = 'none';
+    alert('Form fill ho gaya! ✅ Ab subjects add karo.');
   }
 
   function toggleBulk() {
